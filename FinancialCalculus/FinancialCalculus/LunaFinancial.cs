@@ -39,7 +39,7 @@ namespace FinancialCalculus
             }
             else
             {
-                if (periods != 1)
+                if (periods == 1)
                 {
                     pmt = totalDebit;
                 }

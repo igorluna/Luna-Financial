@@ -19,7 +19,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
-            Assert.AreEqual(result.FinalDebt, 660.99, "O valor total ficou diferente");
+            Assert.AreEqual(result.FinalDebt, 660.99, "The FinalDebt is not as espected");
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
-            Assert.AreEqual(result.FinalDebt, 1050.00, "O valor total ficou diferente");
+            Assert.AreEqual(result.FinalDebt, 1050.00, "The FinalDebt is not as espected");
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
-            Assert.AreEqual(result.FinalDebt, 1045.20, "O valor total ficou diferente");
+            Assert.AreEqual(result.FinalDebt, 1045.20, "The FinalDebt is not as espected");
         }
     }
 }

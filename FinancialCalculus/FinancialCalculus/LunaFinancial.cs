@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FinancialCalculus.Extentions;
+using FinancialCalculus.Model;
+using System;
 using System.Collections.Generic;
 
 namespace FinancialCalculus
@@ -15,21 +17,19 @@ namespace FinancialCalculus
             payment.InitialDate = initialDay;
             payment.InitialDebt = initialDebt;
 
-            double totalDebit = GetTotalDebitByEndOfPeriod(initialDay, firstPayment, initialDebt, rate);
-
-            //Now, with the  debit after the first installment, the instalments will be expected to be monthly with fixed days apart of each one.
+            //Composing the first instalment
+            double totalDebit = TotalDebitByEndOfPeriod(initialDay, firstPayment, initialDebt, rate);
 
             //Calculating PMT
             double pmt = Math.Round(PMT(periods, rate, totalDebit, false), 2);
 
             payment.FinalDebt = Math.Round(pmt * periods, 2);
 
-
             return payment;
         }
+
         public static double PMT(int periods, double rate, double totalDebit, bool firstDueEndOfPeriod)
         {
-
             double pmt;
 
             if (firstDueEndOfPeriod)
@@ -39,7 +39,7 @@ namespace FinancialCalculus
             }
             else
             {
-                if (periods == 1)
+                if (periods != 1)
                 {
                     pmt = totalDebit;
                 }
@@ -53,7 +53,7 @@ namespace FinancialCalculus
             return pmt;
         }
 
-        private static double GetTotalDebitByEndOfPeriod(DateTime initialDay, DateTime firstPayment, double initialDebt, double rate)
+        private static double TotalDebitByEndOfPeriod(DateTime initialDay, DateTime firstPayment, double initialDebt, double rate)
         {
             DateTime firstInstallmentIndex = new DateTime();
 
@@ -67,11 +67,12 @@ namespace FinancialCalculus
             DateTime initialPeriod = new DateTime(initialDay.Year, initialDay.Month, initialDay.Day);
             while (firstInstallmentIndex <= firstPayment)
             {
-                //TODO Calcular dias contábil
-                double days = (firstInstallmentIndex - initialPeriod).TotalDays;
-                if (days > 30) days = 30;
+                double days = initialPeriod.Days360(firstInstallmentIndex);
 
-                totalDebt += rate * totalDebt * (days / 30);
+                double interest = rate * totalDebt * (days / 30);
+                totalDebt += interest;
+
+                initialPeriod = firstInstallmentIndex;
                 firstInstallmentIndex = firstInstallmentIndex.AddMonths(1);
             }
 
@@ -79,28 +80,4 @@ namespace FinancialCalculus
         }
     }
 
-    public class Payment
-    {
-        public Payment()
-        {
-            Instalments = new List<Instalment>();
-        }
-
-        public DateTime InitialDate { get; set; }
-
-        public double InitialDebt { get; set; }
-
-        public double FinalDebt { get; set; }
-
-        public List<Instalment> Instalments { get; set; }
-    }
-
-    public class Instalment
-    {
-        public DateTime DueDate { get; set; }
-
-        public double Value { get; set; }
-
-        public double AmortizationValue { get; set; }
-    }
 }

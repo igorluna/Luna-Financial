@@ -23,6 +23,7 @@ namespace FinancialCalculus
             //Calculating PMT
             double pmt = Math.Round(PMT(periods, rate, totalDebit, false), 2);
 
+            payment.PMT = pmt;
             payment.FinalDebt = Math.Round(pmt * periods, 2);
 
             return payment;

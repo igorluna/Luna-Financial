@@ -11,5 +11,7 @@ namespace FinancialCalculus.Model
         public double Value { get; set; }
 
         public double AmortizationValue { get; set; }
+
+        public double Interest { get; set; }
     }
 }

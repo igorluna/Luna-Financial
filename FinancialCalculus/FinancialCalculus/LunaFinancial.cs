@@ -1,27 +1,41 @@
-﻿using FinancialCalculus.Extentions;
+﻿using System;
+using FinancialCalculus.Extentions;
 using FinancialCalculus.Model;
-using System;
-using System.Collections.Generic;
 
 namespace FinancialCalculus
 {
+    /// <summary>
+    /// Responsabile for calculating payments and instalments.
+    /// </summary>
     public class LunaFinancial
     {
         /// <summary>
-        /// 
+        /// Calculate payment instalments for the instalment.
         /// </summary>
-        /// <returns></returns>
-        public static Payment GetPaymentByInstalment(DateTime initialDay, DateTime firstPayment, double initialDebt, int periods, double rate, bool firstDueEndOfPeriod)
+        /// <param name="initialDay">Day to start calculating fees.</param>
+        /// <param name="firstPayment">Date of the first payment.</param>
+        /// <param name="initialDebt">Initial debt.</param>
+        /// <param name="periods">Number of payments.</param>
+        /// <param name="rate">Monthly rate.</param>
+        /// <param name="firstDueEndOfPeriod">Due should be calculated at the end of first period.</param>
+        /// <returns>Payment values.</returns>
+        public static Payment GetPaymentByInstalment(
+            DateTime initialDay,
+            DateTime firstPayment,
+            double initialDebt,
+            int periods,
+            double rate,
+            bool firstDueEndOfPeriod)
         {
             Payment payment = new Payment();
             payment.InitialDate = initialDay;
             payment.InitialDebt = initialDebt;
 
-            //Composing the first instalment
+            // Composing the first instalment
             double totalDebit = TotalDebitByEndOfPeriod(initialDay, firstPayment, initialDebt, rate);
 
-            //Calculating PMT
-            double pmt = Math.Round(PMT(periods, rate, totalDebit, false), 2);
+            // Calculating PMT
+            double pmt = Math.Round(CalculatePayment(periods, rate, totalDebit, false), 2);
 
             payment.PMT = pmt;
             payment.FinalDebt = Math.Round(pmt * periods, 2);
@@ -29,7 +43,11 @@ namespace FinancialCalculus
             return payment;
         }
 
-        public static double PMT(int periods, double rate, double totalDebit, bool firstDueEndOfPeriod)
+        public static double CalculatePayment(
+            int periods,
+            double rate,
+            double totalDebit,
+            bool firstDueEndOfPeriod)
         {
             double pmt;
 

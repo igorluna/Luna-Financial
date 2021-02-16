@@ -6,7 +6,7 @@ using System.Linq;
 namespace LunaFinancialTest
 {
     [TestClass]
-    public class UnitTest1
+    public class LunaFinancialTest
     {
         [TestMethod]
         public void ThreeInstalmentFinalDebtTest()
@@ -23,6 +23,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
+            //Assert
             Assert.AreEqual(result.FinalDebt, finalDebt, "The FinalDebt is not as espected");
         }
 
@@ -41,6 +42,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
+            //Assert
             Assert.AreEqual(result.PMT, pmt, "The PMT is not as espected");
         }
 
@@ -58,6 +60,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
+            //Assert
             Assert.AreEqual(result.FinalDebt, finalDebt, "The FinalDebt is not as espected");
         }
 
@@ -75,6 +78,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
+            //Assert
             Assert.AreEqual(result.PMT, pmt, "The PMT is not as espected");
         }
 
@@ -93,6 +97,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
+            //Assert
             Assert.AreEqual(result.FinalDebt, finalDebt, "The FinalDebt is not as espected");
         }
 
@@ -111,6 +116,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
+            //Assert
             Assert.AreEqual(finalDebt, result.FinalDebt, "The FinalDebt is not as espected");
         }
 
@@ -129,6 +135,7 @@ namespace LunaFinancialTest
 
             var result = LunaFinancial.GetPaymentByInstalment(initialDate, firstInstalment, initialDebt, numberOfInstalment, rate, true);
 
+            //Assert
             Assert.AreEqual(finalDebt, result.FinalDebt, "The FinalDebt is not as espected");
         }
     }

@@ -22,4 +22,4 @@ jobs:
     - name: Build
       run: dotnet build FinancialCalculus/ --no-restore
     - name: Test
-      run: dotnet test LunaFinancialTest/ --no-build --verbosity normal
+      run: dotnet test FinancialCalculus/ --no-build --verbosity normal
